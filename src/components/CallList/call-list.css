@@ -1,0 +1,37 @@
+.calllist-container {
+    height: 100%;
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+}
+
+.loading-activities {
+    position: relative;
+    top: 20%;
+    transform: translateY(-50%);
+}
+
+.empty-list-info {
+    text-align: center;
+}
+
+
+
+/* Webkit css */
+/* webkit scrollbar compatible with Chrome, Edge, Opera, Safari */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: lightgray;
+    border-radius: 20px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 20px;
+  }
