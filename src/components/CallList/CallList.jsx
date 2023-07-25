@@ -23,12 +23,14 @@ const formatLists = (calls, setIsLoading = () => {}) => {
 
 	// Creates key-values based on date and archive status into dataDateList object
 	calls.forEach(call => {
-		const date = call.created_at.substring(0, 10);
+		if (call.from) {
+			const date = call.created_at.substring(0, 10);
 
-		const status = call.is_archived ? 'archived' : 'activity';
-
-		if (dataDateList[date + ' - ' + status]) dataDateList[date + ' - ' + status].push(call)
-		else dataDateList[date + ' - ' + status] = [call]
+			const status = call.is_archived ? 'archived' : 'activity';
+	
+			if (dataDateList[date + ' - ' + status]) dataDateList[date + ' - ' + status].push(call)
+			else dataDateList[date + ' - ' + status] = [call]
+		}
 	});
 
 	const activityArr = [];
@@ -87,14 +89,12 @@ const CallList = () => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		if (archiveAction && tab == 'archived') unarchiveAll(setIsLoading)
+		if (archiveAction && tab == 'archived') unarchiveAll(setIsLoading);
 
 		if (archiveAction && tab == 'activity') {
-			calls.forEach(call => {
-				if (!call.is_archived) archiveCall(call.id);
+			calls.forEach((call, index) => {
+				if (!call.is_archived) archiveCall(call.id, calls.length == index + 1 ? setIsLoading : () => {});
 			});
-
-			setIsLoading(true);
 		}
 
 		setArchiveAction(false);

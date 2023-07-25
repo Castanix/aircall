@@ -16,7 +16,7 @@ const getCalls = (setCalls, setIsLoading) => {
 		});
 }
 
-const archiveCall = (call_id) => {
+const archiveCall = (call_id, setIsLoading) => {
 	fetch(`https://cerulean-marlin-wig.cyclic.app/activities/${call_id}`, {
 		method: 'PATCH',
 		body: JSON.stringify({
@@ -27,7 +27,8 @@ const archiveCall = (call_id) => {
 		}
 	})
 		.then(response => {
-			if (!response.ok) throw response;
+			if (response.ok) setIsLoading(true)
+			else throw response;
 		})
 		.catch(err => {
 			console.error(`Error archiving call id $${call_id}.`, err);
